@@ -39,7 +39,7 @@
 
         <div class="row mt-4 mt-lg-5" id="list-row">
 
-            <table class="table table-dark">
+            <table class="table table-dark table-striped">
                 <thead>
                     <tr>
                         <th class="col-10">Produkt</th>
