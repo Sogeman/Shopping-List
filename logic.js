@@ -1,6 +1,11 @@
 $(document).ready(function () {
     Queries.LoadShoppingList();
+    $("#title").text("Einkaufsliste vom "+ objDate.getDate() +". "+ month); 
 });
+
+var objDate = new Date(),
+    locale = "de-de",
+    month = objDate.toLocaleString(locale, { month: "long" });
 
 var products = {}; // global object as fake database in combination with local storage
 
