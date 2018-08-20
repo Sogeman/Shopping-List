@@ -110,7 +110,7 @@ var Queries = {
 
     , SaveEntry: function () {
 
-        var product = String($("#product-entry").val());
+        var product = String($("#product-entry").val().trim());
         var count = Number($("#count-entry").val() || 1);
 
         if (!products.hasOwnProperty(product)) {
