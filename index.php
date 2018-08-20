@@ -60,7 +60,7 @@
         </div>
 
     </div>
-    
+    <!--Icon made by Juliia Osadcha: https://www.iconfinder.com/icons/1891023/cancel_cercle_close_delete_dismiss_remove_icon -->
 </body>
 
 </html>
