@@ -3,4 +3,4 @@ simple shopping list, since I didn't want to pay for more databases on my hoster
 
 All Jquery/JS and Bootstrap
 
-Works offline
+Works offline after loading once
