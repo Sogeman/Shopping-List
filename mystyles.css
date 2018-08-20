@@ -9,3 +9,8 @@ h5 {
 td {
     font-size: 1.5em;
 }
+
+.marked {
+    text-decoration: line-through;
+    color: grey;
+}

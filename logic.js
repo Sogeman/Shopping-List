@@ -40,6 +40,7 @@ var Events = {
         Events.SubmitWithEnter();
         Events.DeleteButton();
         Events.ClearButton();
+        Events.MarkedEntry();
 
         $("#product-entry").val("");
         $("#count-entry").val("1");
@@ -80,6 +81,7 @@ var Events = {
             event.stopPropagation();
             var product = $(this).data('id'); // reads data-id attribute from the delete button
             Queries.DeleteEntry(product);
+            $(this).closest("tr").remove();
         });
     }
 
@@ -88,6 +90,13 @@ var Events = {
             event.stopPropagation();
             localStorage.removeItem("shoppinglist");
             Queries.LoadShoppingList();
+        })
+    }
+
+    , MarkedEntry: function () {
+        $("tbody tr").off().on("click", function (event) {
+            event.stopPropagation();
+            $(this).toggleClass("marked");
         })
     }
 }
@@ -105,7 +114,6 @@ var Queries = {
 
         var list = JSON.stringify(products);
         localStorage.setItem("shoppinglist", list)
-        Queries.LoadShoppingList();
     }
 
     , SaveEntry: function () {
