@@ -19,9 +19,7 @@
     <div class="container">
 
         <div class="row my-3">
-            <h5 class="mx-auto">Einkaufsliste vom 
-                <?php setlocale(LC_TIME, "de_DE.utf8"); echo date('d. F'); ?> <!-- echo strftime(" %B"); --> <!-- maybe works without strftime, wont know until October-->
-            </h5>
+            <h5 class="mx-auto" id="title"></h5>
         </div>
 
         <div class="row mt-2">
@@ -39,7 +37,7 @@
 
         <div class="row mt-4 mt-lg-5" id="list-row">
 
-            <table class="table table-dark">
+            <table class="table table-dark table-striped">
                 <thead>
                     <tr>
                         <th class="col-10">Produkt</th>
