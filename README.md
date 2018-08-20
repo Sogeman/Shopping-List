@@ -3,4 +3,4 @@ simple shopping list, since I didn't want to pay for more databases on my hoster
 
 All Jquery/JS and Bootstrap
 
-Todo (maybe at some point): change the delete button for each item to clicking on that item to mark it done
+Works offline
