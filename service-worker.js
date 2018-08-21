@@ -1,5 +1,7 @@
 //This is the service worker with the Cache-first network
 
+//v1.1
+
 var CACHE = 'pwabuilder-precache';
 var precacheFiles = [
       'index.html',
@@ -8,7 +10,8 @@ var precacheFiles = [
       'logic.js',
       'bootstrap.min.css',
       'bootstrap.min.js',
-      'jquery-3.3.1.min.js'
+      'jquery-3.3.1.min.js',
+      'favicon.png'
     ];
 
 //Install stage sets up the cache-array to configure pre-cache content
