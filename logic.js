@@ -88,7 +88,8 @@ var Events = {
     , ClearButton: function () {
         $("#clear-button").off().on("click", function (event) {
             event.stopPropagation();
-            localStorage.removeItem("shoppinglist");
+            localStorage.clear();
+            products = {};
             Queries.LoadShoppingList();
         })
     }
