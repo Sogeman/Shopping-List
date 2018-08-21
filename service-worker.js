@@ -11,7 +11,8 @@ var precacheFiles = [
       'bootstrap.min.css',
       'bootstrap.min.js',
       'jquery-3.3.1.min.js',
-      'favicon.png'
+      'favicon.png',
+      'android-icon-192x192.png'
     ];
 
 //Install stage sets up the cache-array to configure pre-cache content
