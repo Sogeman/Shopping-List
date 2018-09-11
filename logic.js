@@ -120,8 +120,9 @@ var Queries = {
     , SaveEntry: function () {
 
         var product = String($("#product-entry").val().trim());
-        var count = Number($("#count-entry").val() || 1);
+        product = product.replace(/[^a-zA-Z0-9-. ]/g,"");
         
+        var count = Number($("#count-entry").val() || 1);
         if (count > 99) { 
            count = 99;
         };
