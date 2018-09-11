@@ -121,6 +121,10 @@ var Queries = {
 
         var product = String($("#product-entry").val().trim());
         var count = Number($("#count-entry").val() || 1);
+        
+        if (count > 99) { 
+           count = 99;
+        };
 
         if (!products.hasOwnProperty(product)) {
             products[product] = count
