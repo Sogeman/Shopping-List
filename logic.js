@@ -20,7 +20,7 @@ var ShoppingList = {
         }
 
         $.each(list, function (key, value) {
-            var row = '<tr><td scope="row">' + key + '</td>';
+            var row = '<tr class="list-item"><td scope="row">' + key + '</td>';
             row += '<td class="text-right">' + value + '</td>';
             row += '<td><button type="button" class="btn btn-link delete-button" data-id="' + key + '"><img src="delete-button.png"></button></td>';
             row += '</tr>';
@@ -39,6 +39,7 @@ var Events = {
         Events.SaveButton();
         Events.SubmitWithEnter();
         Events.DeleteButton();
+        Events.DoneButton();
         Events.ClearButton();
         Events.MarkedEntry();
 
@@ -91,6 +92,30 @@ var Events = {
             localStorage.clear();
             products = {};
             Queries.LoadShoppingList();
+        });
+    }
+    
+    , DoneButton: function () {
+        $("#done-button").off().on("click", function (event) {
+            event.stopPropagation();
+            $(".marked").remove();
+            products = {};
+            var items = $(".list-item");
+         items.each( function( index, listitem){
+   		    var item = $(listitem).children().eq(0).html();
+   		    var count = $(listitem).children().eq(1).html();
+   		 
+   		    if (!products.hasOwnProperty(item)) {
+            	    products[item] = count;
+       		} else {
+           		    products[item] += count;
+            }
+	    });
+	    
+	    var list = JSON.stringify(products); // makes a string out of products object for local storage
+	    localStorage.setItem("shoppinglist", list); // stores list in local storage to keep after reload
+
+            Queries.LoadShoppingList();
         })
     }
 
@@ -98,7 +123,7 @@ var Events = {
         $("tbody tr").off().on("click", function (event) {
             event.stopPropagation();
             $(this).toggleClass("marked");
-        })
+        });
     }
 }
 
@@ -128,7 +153,7 @@ var Queries = {
         };
 
         if (!products.hasOwnProperty(product)) {
-            products[product] = count
+            products[product] = count;
         } else {
             products[product] += count;
         }
