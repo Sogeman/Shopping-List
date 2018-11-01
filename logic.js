@@ -103,7 +103,7 @@ var Events = {
             var items = $(".list-item");
          items.each( function( index, listitem){
    		    var item = $(listitem).children().eq(0).html();
-   		    var count = $(listitem).children().eq(1).html();
+   		    var count =  Number($(listitem).children().eq(1).html());
    		 
    		    if (!products.hasOwnProperty(item)) {
             	    products[item] = count;
