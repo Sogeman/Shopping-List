@@ -2,52 +2,48 @@
 <html lang="en">
 
 <head>
-    <script src="service-worker.js"></script>
-    <!-- for offline use -->
-
+    <script src="service-worker.js"></script> <!-- for offline use -->
+    
     <title>Einkaufsliste</title>
     <link rel="shortcut icon" type="image/png" href="/favicon.png">
     <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-
+    
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- fallback for jquery -->
     <script type="text/javascript">
-        if (typeof jQuery == 'undefined') {
-            document.write(unescape("%3Cscript src='jquery-3.3.1.min.js' type='text/javascript'%3E%3C/script%3E"));
-        }
+ 	 if (typeof jQuery == 'undefined')
+ 	 {
+ 	    document.write(unescape("%3Cscript src='jquery-3.3.1.min.js' type='text/javascript'%3E%3C/script%3E"));
+ 	 }
     </script>
-
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
     <!-- fallback for bootstrap.js -->
     <script>    $.fn.modal || document.write('<script src="bootstrap.min.js"><\/script>')</script>
-
+    
     <script src="logic.js"></script>
-
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
     <!-- fallback for bootstrap.css -->
     <script>
-        $(document).ready(function () {
-            var bodyColor = $('body').css('color');
-            if (bodyColor != 'rgb(51, 51, 51)') {
-                $("head").prepend('<link rel="stylesheet" href="bootstrap.min.css">');
-            }
-        });
-    </script>
-
+    	$(document).ready(function() {
+    	var bodyColor = $('body').css('color');
+    	if(bodyColor != 'rgb(51, 51, 51)') {
+    	$("head").prepend('<link rel="stylesheet" href="bootstrap.min.css">');}});
+  </script>
+    
     <link rel="stylesheet" href="mystyles.css">
-
+    
     <!-- Sercice Worker for offline use -->
     <script> 
-        //This is the service worker with the Cache-first network
-
+            //This is the service worker with the Cache-first network
         //Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
         if (navigator.serviceWorker.controller) {
             console.log('[PWA Builder] active service worker found, no need to register')
         } else {
-
             //Register the ServiceWorker
             navigator.serviceWorker.register('service-worker.js', {
                 scope: './'
@@ -59,6 +55,7 @@
 </head>
 
 <body>
+
     <div class="container">
 
         <div class="row my-3">
@@ -95,9 +92,13 @@
         </div>
 
         <div class="row my-3">
-            <div class="col-12 mx-auto text-center">
+        <div class="col-5 mx-auto text-center">
+                <button type="button" class="btn btn-warning btn-lg" id="done-button"><strong>Aufräumen</strong></button>
+            </div>
+            <div class="col-5 mx-auto text-center">
                 <button type="button" class="btn btn-danger btn-lg" id="clear-button"><strong>Liste löschen</strong></button>
             </div>
+            
         </div>
 
     </div>
