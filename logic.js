@@ -145,7 +145,7 @@ var Queries = {
     , SaveEntry: function () {
 
         var product = String($("#product-entry").val().trim());
-        product = product.replace(/[^a-zA-Z0-9-+.äüöÄÖÜ]/g,"");
+        product = product.replace(/[^a-zA-Z0-9-+. äüöÄÖÜ]/g,"");
         
         var count = Number($("#count-entry").val() || 1);
         if (count > 99) { 
