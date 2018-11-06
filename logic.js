@@ -42,6 +42,8 @@ var Events = {
         Events.DoneButton();
         Events.ClearButton();
         Events.MarkedEntry();
+        Events.IncreaseButton();
+        Events.DecreaseButton();
 
         $("#product-entry").val("");
         $("#count-entry").val("1");
@@ -92,7 +94,7 @@ var Events = {
             localStorage.clear();
             products = {};
             Queries.LoadShoppingList();
-        });
+        })
     }
     
     , DoneButton: function () {
@@ -101,15 +103,15 @@ var Events = {
             $(".marked").remove();
             products = {};
             var items = $(".list-item");
-         items.each( function( index, listitem){
-   		    var item = $(listitem).children().eq(0).html();
-   		    var count =  Number($(listitem).children().eq(1).html());
+            items.each( function( index, listitem){
+   		 var item = $(listitem).children().eq(0).html();
+   		 var count = Number($(listitem).children().eq(1).html());
    		 
-   		    if (!products.hasOwnProperty(item)) {
-            	    products[item] = count;
-       		} else {
-           		    products[item] += count;
-            }
+   		 if (!products.hasOwnProperty(item)) {
+            		products[item] = count;
+       		 } else {
+           		products[item] += count;
+        	 }
 	    });
 	    
 	    var list = JSON.stringify(products); // makes a string out of products object for local storage
@@ -123,7 +125,33 @@ var Events = {
         $("tbody tr").off().on("click", function (event) {
             event.stopPropagation();
             $(this).toggleClass("marked");
-        });
+        })
+    }
+    
+    , IncreaseButton: function () {
+        $("#increase-button").off().on("click", function (event) {
+            event.stopPropagation();
+            var value = $("#count-entry").val();
+            if(value < 99) {
+            	value++;
+            } else {
+            	value = value;
+            }
+            $("#count-entry").val(value);
+        })
+    }
+    
+    , DecreaseButton: function () {
+        $("#decrease-button").off().on("click", function (event) {
+            event.stopPropagation();
+            var value = $("#count-entry").val();
+            if(value > 1) {
+            	value--;
+            } else {
+            	value = value;
+            }
+            $("#count-entry").val(value);
+        })
     }
 }
 
