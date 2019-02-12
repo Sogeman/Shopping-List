@@ -2,54 +2,66 @@
 <html lang="en">
 
 <head>
-    <script src="service-worker.js"></script> <!-- for offline use -->
-    
+
+
     <title>Einkaufsliste</title>
+    <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" type="image/png" href="/favicon.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Einkauf">
+    <meta name="apple-mobile-web-app-title" content="Einkauf">
+    <meta name="theme-color" content="#32383e">
+    <meta name="msapplication-navbutton-color" content="#32383e">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/mystyles.css">
+    <script src="service-worker.js"></script> <!-- for offline use -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- fallback for jquery -->
     <script type="text/javascript">
- 	 if (typeof jQuery == 'undefined')
- 	 {
- 	    document.write(unescape("%3Cscript src='jquery-3.3.1.min.js' type='text/javascript'%3E%3C/script%3E"));
- 	 }
+        if (typeof jQuery == 'undefined') {
+            document.write(unescape("%3Cscript src='./jquery-3.3.1.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
     </script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
     <!-- fallback for bootstrap.js -->
     <script>    $.fn.modal || document.write('<script src="bootstrap.min.js"><\/script>')</script>
-    
-    <script src="logic.js"></script>
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+
+    <script src="/logic.js"></script>
+
+
     <!-- fallback for bootstrap.css -->
     <script>
-    	$(document).ready(function() {
-    	var bodyColor = $('body').css('color');
-    	if(bodyColor != 'rgb(51, 51, 51)') {
-    	$("head").prepend('<link rel="stylesheet" href="bootstrap.min.css">');}});
-  </script>
-    
-    <link rel="stylesheet" href="mystyles.css">
-    
+        $(document).ready(function () {
+            var bodyColor = $('body').css('color');
+            if (bodyColor != 'rgb(51, 51, 51)') {
+                $("head").prepend('<link rel="stylesheet" href="bootstrap.min.css">');
+            }
+        });
+    </script>
+
+
+
     <!-- Sercice Worker for offline use -->
-    <script> 
-            //This is the service worker with the Cache-first network
-        //Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
-        if (navigator.serviceWorker.controller) {
-            console.log('[PWA Builder] active service worker found, no need to register')
-        } else {
-            //Register the ServiceWorker
-            navigator.serviceWorker.register('service-worker.js', {
-                scope: './'
-            }).then(function (reg) {
-                console.log('Service worker has been registered for scope:' + reg.scope);
-            });
+    <script>
+        if ('serviceWorker' in navigator) {
+            console.log("Will the service worker register?");
+            navigator.serviceWorker.register('service-worker.js')
+                .then(function (reg) {
+                    console.log("Yes, it did.");
+                }).catch(function (err) {
+                    console.log("No it didn't. This happened: ", err)
+                });
         }
     </script>
 </head>
@@ -64,21 +76,23 @@
 
         <div class="row mt-2 justify-content-center">
             <div class="input-group-lg col-7 col-lg-7">
-                <input type="text" class="form-control h-100" id="product-entry" placeholder="Produkt" aria-label="produkt" aria-describedby="basic-addon1">
+                <input type="text" class="form-control h-100" id="product-entry" placeholder="Produkt"
+                    aria-label="produkt" aria-describedby="basic-addon1">
             </div>
             <div class="input-group-lg col-3 col-lg-2">
                 <input type="number" class="form-control h-100" id="count-entry" placeholder="1" min="1" max="99">
             </div>
             <div class="btn-group-vertical">
-            	<div class="change-button">
-               		 <button type="button" class="btn btn-outline-info" id="increase-button"><strong>+</strong></button>
-            	</div>
-            	<div class="change-button">
-               		 <button type="button" class="btn btn-outline-light" id="decrease-button"><strong>-</strong></button>
-            	</div>
-	    </div>
+                <div class="change-button">
+                    <button type="button" class="btn btn-outline-info" id="increase-button"><strong>+</strong></button>
+                </div>
+                <div class="change-button">
+                    <button type="button" class="btn btn-outline-light" id="decrease-button"><strong>-</strong></button>
+                </div>
+            </div>
             <div class="col-12 mt-3 text-center col-lg-2 mt-lg-0 mx-lg-0 pt-3">
-                <button type="button" class="btn btn-success btn-lg" id="save-button"><strong>Speichern</strong></button>
+                <button type="button" class="btn btn-success btn-lg"
+                    id="save-button"><strong>Speichern</strong></button>
             </div>
         </div>
 
@@ -99,13 +113,15 @@
         </div>
 
         <div class="row my-3 text-center">
-        <div class="col-6">
-                <button type="button" class="btn btn-warning btn-lg" id="done-button"><strong>Aufräumen</strong></button>
+            <div class="col-6">
+                <button type="button" class="btn btn-warning btn-lg"
+                    id="done-button"><strong>Aufräumen</strong></button>
             </div>
             <div class="col-6">
-                <button type="button" class="btn btn-danger btn-lg" id="clear-button"><strong>Liste löschen</strong></button>
+                <button type="button" class="btn btn-danger btn-lg" id="clear-button"><strong>Liste
+                        löschen</strong></button>
             </div>
-            
+
         </div>
 
     </div>
