@@ -1,18 +1,20 @@
 //This is the service worker with the Cache-first network
 
-//v1.1
+//v1.68
 
 var CACHE = 'pwabuilder-precache';
 var precacheFiles = [
+      '/',
       'index.html',
-      'mystyles.css',
       'delete-button.png',
       'logic.js',
-      'bootstrap.min.css',
       'bootstrap.min.js',
       'jquery-3.3.1.min.js',
+      'bootstrap.min.css',
+      'mystyles.css',
       'favicon.png',
-      'android-icon-192x192.png'
+      'android-icon-192x192.png',
+      'manifest.json'
     ];
 
 //Install stage sets up the cache-array to configure pre-cache content
