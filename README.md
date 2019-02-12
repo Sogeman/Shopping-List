@@ -5,6 +5,6 @@ simple shopping list, since I didn't want to pay for more databases on my hoster
 
 All Jquery/JS and Bootstrap
 
-Works offline after loading once
+PWA, can be added to Homescreen and works offline
 
 Now with Android apk!
