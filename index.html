@@ -5,9 +5,9 @@
 
 
     <title>Einkaufsliste</title>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="shortcut icon" type="image/png" href="/favicon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="shortcut icon" type="image/png" href="./favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./android-icon-192x192.png">
 
 
     <meta name="mobile-web-app-capable" content="yes">
@@ -22,8 +22,8 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="/mystyles.css">
-    <script src="service-worker.js"></script> <!-- for offline use -->
+    <link rel="stylesheet" href="./mystyles.css">
+    <script src="./service-worker.js"></script> <!-- for offline use -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- fallback for jquery -->
     <script type="text/javascript">
@@ -34,10 +34,11 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+
     <!-- fallback for bootstrap.js -->
     <script>    $.fn.modal || document.write('<script src="bootstrap.min.js"><\/script>')</script>
 
-    <script src="/logic.js"></script>
+    <script src="./logic.js"></script>
 
 
     <!-- fallback for bootstrap.css -->
@@ -49,8 +50,6 @@
             }
         });
     </script>
-
-
 
     <!-- Sercice Worker for offline use -->
     <script>
@@ -75,11 +74,11 @@
         </div>
 
         <div class="row mt-2 justify-content-center">
-            <div class="input-group-lg col-7 col-lg-7">
+            <div class="input-group-lg col-7 col-lg-7 input-fields">
                 <input type="text" class="form-control h-100" id="product-entry" placeholder="Produkt"
                     aria-label="produkt" aria-describedby="basic-addon1">
             </div>
-            <div class="input-group-lg col-3 col-lg-2">
+            <div class="input-group-lg col-3 col-lg-2 input-fields">
                 <input type="number" class="form-control h-100" id="count-entry" placeholder="1" min="1" max="99">
             </div>
             <div class="btn-group-vertical">
@@ -115,10 +114,10 @@
         <div class="row my-3 text-center">
             <div class="col-6">
                 <button type="button" class="btn btn-warning btn-lg"
-                    id="done-button"><strong>Aufräumen</strong></button>
+                    id="cleanup-button"><strong>Aufräumen</strong></button>
             </div>
             <div class="col-6">
-                <button type="button" class="btn btn-danger btn-lg" id="clear-button"><strong>Liste
+                <button type="button" class="btn btn-danger btn-lg" id="delete-list-button"><strong>Liste
                         löschen</strong></button>
             </div>
 

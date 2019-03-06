@@ -14,14 +14,13 @@ var ShoppingList = {
         $("#product-table").empty();
         var storage = localStorage.getItem("shoppinglist");
         var list = JSON.parse(storage);
-        // console.log(list);
         if (list != null) {
             products = list;
         }
 
         $.each(list, function (key, value) {
-            var row = '<tr class="list-item"><td scope="row">' + key + '</td>';
-            row += '<td class="text-right">' + value + '</td>';
+            var row = '<tr class="list-item ' + value.status + '"><td scope="row">' + key + '</td>';
+            row += '<td class="text-right">' + value.count + '</td>';
             row += '<td><button type="button" class="btn btn-link delete-button" data-id="' + key + '"><img src="delete-button.png"></button></td>';
             row += '</tr>';
             $("#product-table").append(row);
@@ -39,8 +38,8 @@ var Events = {
         Events.SaveButton();
         Events.SubmitWithEnter();
         Events.DeleteButton();
-        Events.DoneButton();
-        Events.ClearButton();
+        Events.CleanUpButton();
+        Events.DeleteListButton();
         Events.MarkedEntry();
         Events.IncreaseButton();
         Events.DecreaseButton();
@@ -88,8 +87,8 @@ var Events = {
         });
     }
 
-    , ClearButton: function () {
-        $("#clear-button").off().on("click", function (event) {
+    , DeleteListButton: function () {
+        $("#delete-list-button").off().on("click", function (event) {
             event.stopPropagation();
             localStorage.clear();
             products = {};
@@ -97,8 +96,8 @@ var Events = {
         })
     }
     
-    , DoneButton: function () {
-        $("#done-button").off().on("click", function (event) {
+    , CleanUpButton: function () {
+        $("#cleanup-button").off().on("click", function (event) {
             event.stopPropagation();
             $(".marked").remove();
             products = {};
@@ -108,16 +107,14 @@ var Events = {
    		 var count = Number($(listitem).children().eq(1).html());
    		 
    		 if (!products.hasOwnProperty(item)) {
-            		products[item] = count;
+            		products[item] = {count: count};
        		 } else {
-           		products[item] += count;
+           		products[item].count += count;
         	 }
 	    });
 	    
-	    var list = JSON.stringify(products); // makes a string out of products object for local storage
-	    localStorage.setItem("shoppinglist", list); // stores list in local storage to keep after reload
-
-            Queries.LoadShoppingList();
+        Queries.SaveToLocalStorage();
+        Queries.LoadShoppingList();
         })
     }
 
@@ -125,6 +122,13 @@ var Events = {
         $("tbody tr").off().on("click", function (event) {
             event.stopPropagation();
             $(this).toggleClass("marked");
+            let product = $(this).children(":first").text();
+            if (products[product].status !== 'marked') {
+                products[product].status = 'marked';
+            } else {
+                products[product].status = '';
+            }
+            Queries.SaveToLocalStorage();
         })
     }
     
@@ -181,14 +185,17 @@ var Queries = {
         };
 
         if (!products.hasOwnProperty(product)) {
-            products[product] = count;
+            products[product] = {count: count};
         } else {
-            products[product] += count;
+            products[product].count += count;
         }
 
+        Queries.SaveToLocalStorage();
+        Queries.LoadShoppingList();
+    }
+
+    , SaveToLocalStorage: function () {
         var list = JSON.stringify(products); // makes a string out of products object for local storage
         localStorage.setItem("shoppinglist", list); // stores list in local storage to keep after reload
-
-        Queries.LoadShoppingList();
     }
 }
