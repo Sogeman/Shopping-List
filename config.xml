@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "online.mandler.einkauf"
+    versionCode = "10"
+    version     = "1.0.0" >
+
+
+  <name>Einkaufsliste</name>
+  <platform name="android">
+    <icon src="./android-icon-192x192.png" width="192" height="192"/>
+  </platform>  
+
+  <description>
+    Simple Shoppinglist app
+  </description>
+
+  <author>
+    Rene Mandler
+  </author>
+
+</widget>
