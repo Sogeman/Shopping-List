@@ -21,6 +21,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+    <!-- fallback for bootstrap.css -->
+    <script>
+        $(document).ready(function () {
+            var bodyColor = $('body').css('color');
+            if (bodyColor != 'rgb(51, 51, 51)') {
+                $("head").prepend('<link rel="stylesheet" href="bootstrap.min.css">');
+            }
+        });
+    </script>
 
     <link rel="stylesheet" href="./mystyles.css">
 
@@ -44,15 +53,6 @@
     <script src="./logic.js"></script>
 
 
-    <!-- fallback for bootstrap.css -->
-    <script>
-        $(document).ready(function () {
-            var bodyColor = $('body').css('color');
-            if (bodyColor != 'rgb(51, 51, 51)') {
-                $("head").prepend('<link rel="stylesheet" href="bootstrap.min.css">');
-            }
-        });
-    </script>
 
     <!-- Sercice Worker for offline use -->
     <script>
@@ -92,7 +92,7 @@
                     <button type="button" class="btn btn-outline-light" id="decrease-button"><strong>-</strong></button>
                 </div>
             </div>
-            <div class="col-12 mt-3 text-center col-lg-2 mt-lg-0 mx-lg-0 pt-3">
+            <div class="col-12 mt-1 text-center col-lg-2 mt-lg-0 mx-lg-0 pt-3">
                 <button type="button" class="btn btn-success btn-lg"
                     id="save-button"><strong>Speichern</strong></button>
             </div>
@@ -104,8 +104,8 @@
                 <thead>
                     <tr>
                         <th class="col-10">Produkt</th>
-                        <th>Anzahl</th>
-                        <th>Löschen</th>
+                        <th>Menge</th>
+                        <th>Aktionen</th>
                     </tr>
                 </thead>
                 <tbody id="product-table">
@@ -115,11 +115,11 @@
         </div>
 
         <div class="row my-3 text-center">
-            <div class="col-6">
+            <!-- <div class="col-6">
                 <button type="button" class="btn btn-warning btn-lg"
                     id="cleanup-button"><strong>Aufräumen</strong></button>
-            </div>
-            <div class="col-6">
+            </div> -->
+            <div class="col-6 mx-auto">
                 <button type="button" class="btn btn-danger btn-lg" id="delete-list-button"><strong>Liste
                         löschen</strong></button>
             </div>
