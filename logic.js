@@ -1,13 +1,26 @@
 $(document).ready(function () {
-    Queries.LoadShoppingList();
-    $("#title").text("Einkaufsliste vom "+ objDate.getDate() +". "+ month); 
+    $('#product-table').sortable({
+        stop: () => { // on event stop (drag&drop) clean products/localstorage and read/save them again from list in new order
+            products = [];
+            const items = $(".list-item");
+            items.each((index, listitem) => {
+                const itemName = $(listitem).children().eq(0).html();
+                const count = Number($(listitem).children().eq(1).html());
+                Queries.SaveToProducts(itemName, count);
+            });
+            localStorage.clear();
+            Queries.SaveToLocalStorage();
+        }
+    });
+    ShoppingList.DrawShoppingList();
+    $("#title").text("Einkaufsliste vom " + objDate.getDate() + ". " + month);
 });
 
 var objDate = new Date(),
     locale = "de-de",
     month = objDate.toLocaleString(locale, { month: "long" });
 
-var products = {}; // global object as fake database in combination with local storage
+var products = []; // global array as fake database in combination with local storage
 
 var ShoppingList = {
     DrawShoppingList: function () {
@@ -19,9 +32,9 @@ var ShoppingList = {
         }
 
         $.each(list, function (key, value) {
-            var row = '<tr class="list-item ' + value.status + '"><td scope="row">' + key + '</td>';
+            var row = '<tr class="list-item ' + value.status + '"><td scope="row">' + value.name + '</td>';
             row += '<td class="text-right">' + value.count + '</td>';
-            row += '<td><button type="button" class="btn btn-link delete-button" data-id="' + key + '"><img src="delete-button.png"></button></td>';
+            row += '<td><button type="button" class="btn btn-link delete-button" data-id="' + value.name + '"><img src="delete-button.png"></button></td>';
             row += '</tr>';
             $("#product-table").append(row);
         });
@@ -91,30 +104,27 @@ var Events = {
         $("#delete-list-button").off().on("click", function (event) {
             event.stopPropagation();
             localStorage.clear();
-            products = {};
-            Queries.LoadShoppingList();
+            products = [];
+            ShoppingList.DrawShoppingList();
         })
     }
-    
+
     , CleanUpButton: function () {
         $("#cleanup-button").off().on("click", function (event) {
             event.stopPropagation();
             $(".marked").remove();
-            products = {};
+            products = [];
             var items = $(".list-item");
-            items.each( function( index, listitem){
-   		 var item = $(listitem).children().eq(0).html();
-   		 var count = Number($(listitem).children().eq(1).html());
-   		 
-   		 if (!products.hasOwnProperty(item)) {
-            		products[item] = {count: count};
-       		 } else {
-           		products[item].count += count;
-        	 }
-	    });
-	    
-        Queries.SaveToLocalStorage();
-        Queries.LoadShoppingList();
+
+            items.each((index, listitem) => {
+                const itemName = $(listitem).children().eq(0).html();
+                const count = Number($(listitem).children().eq(1).html());
+                Queries.SaveToProducts(itemName, count);
+
+            });
+
+            Queries.SaveToLocalStorage();
+            ShoppingList.DrawShoppingList();
         })
     }
 
@@ -123,36 +133,37 @@ var Events = {
             event.stopPropagation();
             $(this).toggleClass("marked");
             let product = $(this).children(":first").text();
-            if (products[product].status !== 'marked') {
-                products[product].status = 'marked';
+            const i = products.findIndex(p => p.name === product);
+            if (products[i].status !== 'marked') {
+                products[i].status = 'marked';
             } else {
-                products[product].status = '';
+                products[i].status = '';
             }
             Queries.SaveToLocalStorage();
         })
     }
-    
+
     , IncreaseButton: function () {
         $("#increase-button").off().on("click", function (event) {
             event.stopPropagation();
             var value = $("#count-entry").val();
-            if(value < 99) {
-            	value++;
+            if (value < 99) {
+                value++;
             } else {
-            	value = value;
+                value = value;
             }
             $("#count-entry").val(value);
         })
     }
-    
+
     , DecreaseButton: function () {
         $("#decrease-button").off().on("click", function (event) {
             event.stopPropagation();
             var value = $("#count-entry").val();
-            if(value > 1) {
-            	value--;
+            if (value > 1) {
+                value--;
             } else {
-            	value = value;
+                value = value;
             }
             $("#count-entry").val(value);
         })
@@ -162,13 +173,10 @@ var Events = {
 
 var Queries = {
 
-    LoadShoppingList: function () {
-        ShoppingList.DrawShoppingList();
-    }
+    DeleteEntry: function (product) {
 
-    , DeleteEntry: function (product) {
-
-        delete products[product]; // deletes property with the same name as the clicked data-id on delete button
+        let i = products.findIndex(p => p.name === product);
+        products.splice(i, 1);
 
         var list = JSON.stringify(products);
         localStorage.setItem("shoppinglist", list)
@@ -177,25 +185,40 @@ var Queries = {
     , SaveEntry: function () {
 
         var product = String($("#product-entry").val().trim());
-        product = product.replace(/[^a-zA-Z0-9-+. äüöÄÖÜ]/g,"");
-        
+        product = product.replace(/[^a-zA-Z0-9-+. äüöÄÖÜ]/g, "");
+
         var count = Number($("#count-entry").val() || 1);
-        if (count > 99) { 
-           count = 99;
+        if (count > 99) {
+            count = 99;
         };
 
-        if (!products.hasOwnProperty(product)) {
-            products[product] = {count: count};
-        } else {
-            products[product].count += count;
-        }
-
+        Queries.SaveToProducts(product, count);
         Queries.SaveToLocalStorage();
-        Queries.LoadShoppingList();
+        ShoppingList.DrawShoppingList();
     }
 
     , SaveToLocalStorage: function () {
         var list = JSON.stringify(products); // makes a string out of products object for local storage
         localStorage.setItem("shoppinglist", list); // stores list in local storage to keep after reload
+    }
+
+    , SaveToProducts: function (name, count) {
+        let updated = false;
+        let productObj = {
+            name: name,
+            count: count,
+            status: ''
+        };
+
+        products.find((p, index) => {
+            if (p.name === name) {
+                products[index]['count'] += count;
+                updated = true;
+            }
+        });
+
+        if (updated === false) {
+            products = [...products, productObj];
+        }
     }
 }

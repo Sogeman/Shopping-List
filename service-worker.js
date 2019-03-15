@@ -10,6 +10,7 @@ var precacheFiles = [
       'logic.js',
       'bootstrap.min.js',
       'jquery-3.3.1.min.js',
+      'jquery-ui.min.js',
       'bootstrap.min.css',
       'mystyles.css',
       'favicon.png',

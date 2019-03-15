@@ -23,12 +23,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="./mystyles.css">
+
     <script src="./service-worker.js"></script> <!-- for offline use -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <!-- fallback for jquery -->
     <script type="text/javascript">
         if (typeof jQuery == 'undefined') {
             document.write(unescape("%3Cscript src='./jquery-3.3.1.min.js' type='text/javascript'%3E%3C/script%3E"));
+            document.write(unescape("%3Cscript src='./jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
         }
     </script>
 
@@ -125,6 +128,7 @@
 
     </div>
     <!--Icon made by Juliia Osadcha: https://www.iconfinder.com/icons/1891023/cancel_cercle_close_delete_dismiss_remove_icon -->
+
 </body>
 
 </html>
