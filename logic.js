@@ -148,9 +148,9 @@ var Events = {
     , SortButton: function () {
         $('#sort-button').off().on("click", function (event) {
             $('#button-insert-point').append(detachedButton);
+            $('#confirm-sorting-button').show();
             detachedButton = $('#sort-button').detach();
             ShoppingList.DrawShoppingList(true);
-
         });
     }
 
