@@ -6,6 +6,8 @@ $(document).ready(function () {
             items.each((index, listitem) => {
                 const itemName = $(listitem).children().eq(0).html();
                 const count = Number($(listitem).children().eq(1).html());
+                //save status
+                console.log($(listitem));
                 Queries.SaveToProducts(itemName, count);
             });
             localStorage.clear();
@@ -13,6 +15,7 @@ $(document).ready(function () {
         }
     });
     ShoppingList.DrawShoppingList();
+    detachedButton = $('#confirm-sorting-button').detach();
     $("#title").text("Einkaufsliste vom " + objDate.getDate() + ". " + month);
 });
 
@@ -21,21 +24,30 @@ var objDate = new Date(),
     month = objDate.toLocaleString(locale, { month: "long" });
 
 var products = []; // global array as fake database in combination with local storage
+let detachedButton;
 
 var ShoppingList = {
-    DrawShoppingList: function () {
+    DrawShoppingList: function (sorting) {
         $("#product-table").empty();
-        var storage = localStorage.getItem("shoppinglist");
-        var list = JSON.parse(storage);
-        if (list != null) {
-            products = list;
+        let list;
+        if (products.length > 0) {
+            list = products;
+        } else {
+            list = Queries.FetchProducts();
         }
 
         $.each(list, function (key, value) {
-            var row = '<tr class="list-item ' + value.status + '"><td scope="row" class="markable">' + value.name + '</td>';
-            row += '<td class="text-right">' + value.count + '</td>';
-            row += '<td class="actions"><button type="button" class="btn btn-link delete-button" data-id="' + value.name + '"><img src="delete-button.png"></button>';
-            row += '<button type="button" id="up-button">up</button><button type="button" id="down-button">down</button></td>';
+            var row = '<tr class="list-item"><td scope="row" class="markable ' + value.status + '">' + value.name + '</td>';
+            row += '<td class="text-right ' + value.status + '">' + value.count + '</td>';
+            row += '<td class="actions">'
+            if (sorting) { // fucks up if you switch to fullscreen while sorting on mobile view, don't care for my usage
+                row += '<button type="button" class="btn btn-link up-button" data-key="' 
+                + key + '"><img src="./up-arrow.png"></button><button type="button" class="btn btn-link down-button" data-key="' 
+                + key + '"><img src="./down-arrow.png"></button>';
+            } else {
+                row += '<button type="button" class="btn btn-link delete-button" data-id="' + value.name + '"><img src="./delete-button.png"></button>';
+            }
+            row += '</td>';
             row += '</tr>';
             $("#product-table").append(row);
         });
@@ -52,8 +64,12 @@ var Events = {
         Events.SaveButton();
         Events.SubmitWithEnter();
         Events.DeleteButton();
+        Events.SortButton();
+        Events.ConfirmSortButton();
+        Events.MoveEntryUpButton();
+        Events.MoveEntryDownButton();
         Events.CleanUpButton();
-        Events.DeleteListButton();
+        // Events.DeleteListButton();
         Events.MarkedEntry();
         Events.IncreaseButton();
         Events.DecreaseButton();
@@ -101,19 +117,19 @@ var Events = {
         });
     }
 
-    , DeleteListButton: function () {
-        $("#delete-list-button").off().on("click", function (event) {
-            event.stopPropagation();
-            localStorage.clear();
-            products = [];
-            ShoppingList.DrawShoppingList();
-        })
-    }
+    // , DeleteListButton: function () {
+    //     $("#delete-list-button").off().on("click", function (event) {
+    //         event.stopPropagation();
+    //         localStorage.clear();
+    //         products = [];
+    //         ShoppingList.DrawShoppingList();
+    //     });
+    // }
 
     , CleanUpButton: function () {
         $("#cleanup-button").off().on("click", function (event) {
             event.stopPropagation();
-            $(".marked").remove();
+            $(".marked").parent().remove();
             products = [];
             var items = $(".list-item");
 
@@ -129,11 +145,30 @@ var Events = {
         })
     }
 
+    , SortButton: function () {
+        $('#sort-button').off().on("click", function (event) {
+            $('#button-insert-point').append(detachedButton);
+            detachedButton = $('#sort-button').detach();
+            ShoppingList.DrawShoppingList(true);
+
+        });
+    }
+
+    , ConfirmSortButton: function () {
+        $('#confirm-sorting-button').off().on("click", function (event) {
+            $('#button-insert-point').append(detachedButton);
+            detachedButton = $('#confirm-sorting-button').detach();
+            Queries.SaveToLocalStorage();
+            ShoppingList.DrawShoppingList();
+        });
+    }
+
     , MarkedEntry: function () {
         $(".markable").off().on("click", function (event) {
             event.stopPropagation();
             $(this).toggleClass("marked");
-            let product = $(this).children(":first").text();
+            $(this).siblings(':first').toggleClass("marked");
+            let product = $(this).text();
             const i = products.findIndex(p => p.name === product);
             if (products[i].status !== 'marked') {
                 products[i].status = 'marked';
@@ -141,7 +176,7 @@ var Events = {
                 products[i].status = '';
             }
             Queries.SaveToLocalStorage();
-        })
+        });
     }
 
     , IncreaseButton: function () {
@@ -154,7 +189,7 @@ var Events = {
                 value = value;
             }
             $("#count-entry").val(value);
-        })
+        });
     }
 
     , DecreaseButton: function () {
@@ -167,7 +202,23 @@ var Events = {
                 value = value;
             }
             $("#count-entry").val(value);
-        })
+        });
+    }
+
+    , MoveEntryUpButton: function () {
+        $(".up-button").off().on("click", function (event) {
+            index = $(this).data('key');
+            Queries.MoveEntry(products, index, index-1);
+            ShoppingList.DrawShoppingList(true);
+        });
+    }
+
+    , MoveEntryDownButton: function () {
+        $(".down-button").off().on("click", function (event) {
+            index = $(this).data('key');
+            Queries.MoveEntry(products, index, index+1);
+            ShoppingList.DrawShoppingList(true);
+        });
     }
 }
 
@@ -221,5 +272,23 @@ var Queries = {
         if (updated === false) {
             products = [...products, productObj];
         }
+    }
+
+    , MoveEntry: function (array, oldIndex, newIndex) {
+        if (newIndex > array.length || newIndex < 0) {
+            return;
+        }
+        const removedElement = array.splice(oldIndex, 1)[0];
+        array.splice(newIndex, 0, removedElement);
+            
+    }
+
+    , FetchProducts: function () {
+        var storage = localStorage.getItem("shoppinglist");
+        var list = JSON.parse(storage);
+        if (list != null) {
+            products = list;
+        }
+        return list;
     }
 }

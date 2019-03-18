@@ -16,25 +16,43 @@ td.actions {
 }
 
 .input-fields {
-    height: 4em;
+    height: 3.5em;
     margin-top: 0.5em;
 }
 
 .marked {
     text-decoration: line-through;
     color: grey;
-    opacity: 0.3;
+    opacity: 0.2;
+}
+
+.count-button {
+    position: absolute;
+    top: 6%;
+    left: 33%;
 }
 
 .change-button {
-    width: 35px;
-    height: 35px;
+    width: 2em;
+    height: 2em;
     margin-bottom: 5px;
 }
 
-.delete-button {
-    padding-bottom: 0;
-    padding-top:0;
+#increase-button, #decrease-button {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+#save-button {
+    margin-top: 0.5em;
+}
+
+.delete-button, .up-button, .down-button {
+    padding: 0;
+}
+.up-button {
+    margin-right: 0.5em;
 }
 
 #up-button {
@@ -55,7 +73,10 @@ input[type="number"] {
 }
 
 @media only screen and (min-width: 650px) {
-    #up-button, #down-button {
+    #up-button, #down-button, #button-insert-point {
         display: none;
+    }
+    .cleanup-button-wrapper {
+        margin: 0 auto;
     }
 }

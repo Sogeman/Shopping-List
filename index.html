@@ -21,6 +21,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="./mystyles.css">
+
+    <script src="./service-worker.js"></script> <!-- for offline use -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <!-- fallback for bootstrap.css -->
     <script>
         $(document).ready(function () {
@@ -30,12 +36,6 @@
             }
         });
     </script>
-
-    <link rel="stylesheet" href="./mystyles.css">
-
-    <script src="./service-worker.js"></script> <!-- for offline use -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <!-- fallback for jquery -->
     <script type="text/javascript">
         if (typeof jQuery == 'undefined') {
@@ -86,13 +86,13 @@
             </div>
             <div class="btn-group-vertical">
                 <div class="change-button">
-                    <button type="button" class="btn btn-outline-info" id="increase-button"><strong>+</strong></button>
+                    <button type="button" class="btn btn-outline-info" id="increase-button"><strong class="count-button">+</strong></button>
                 </div>
                 <div class="change-button">
-                    <button type="button" class="btn btn-outline-light" id="decrease-button"><strong>-</strong></button>
+                    <button type="button" class="btn btn-outline-light" id="decrease-button"><strong class="count-button">-</strong></button>
                 </div>
             </div>
-            <div class="col-12 mt-1 text-center col-lg-2 mt-lg-0 mx-lg-0 pt-3">
+            <div class="col-12 mt-1 text-center col-lg-2 mt-lg-0 mx-lg-0 pt-2">
                 <button type="button" class="btn btn-success btn-lg"
                     id="save-button"><strong>Speichern</strong></button>
             </div>
@@ -115,13 +115,18 @@
         </div>
 
         <div class="row my-3 text-center">
-            <!-- <div class="col-6">
+            <div class="col-6" id="button-insert-point">
                 <button type="button" class="btn btn-warning btn-lg"
-                    id="cleanup-button"><strong>Aufräumen</strong></button>
-            </div> -->
-            <div class="col-6 mx-auto">
-                <button type="button" class="btn btn-danger btn-lg" id="delete-list-button"><strong>Liste
-                        löschen</strong></button>
+                    id="sort-button"><strong>Liste ordnen</strong>
+                </button>
+                <button type="button" class="btn btn-success btn-lg" id="confirm-sorting-button"><strong>Liste
+                        sichern</strong>
+                </button>
+            </div>
+            <div class="col-6 cleanup-button-wrapper">
+                <button type="button" class="btn btn-danger btn-lg" id="cleanup-button">
+                    <strong>Aufräumen</strong>
+                </button>
             </div>
 
         </div>

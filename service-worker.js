@@ -7,6 +7,8 @@ var precacheFiles = [
       '/',
       'index.html',
       'delete-button.png',
+      'up-arrow.png',
+      'down-arrow.png',
       'logic.js',
       'bootstrap.min.js',
       'jquery-3.3.1.min.js',
