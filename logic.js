@@ -32,9 +32,10 @@ var ShoppingList = {
         }
 
         $.each(list, function (key, value) {
-            var row = '<tr class="list-item ' + value.status + '"><td scope="row">' + value.name + '</td>';
+            var row = '<tr class="list-item ' + value.status + '"><td scope="row" class="markable">' + value.name + '</td>';
             row += '<td class="text-right">' + value.count + '</td>';
-            row += '<td><button type="button" class="btn btn-link delete-button" data-id="' + value.name + '"><img src="delete-button.png"></button></td>';
+            row += '<td class="actions"><button type="button" class="btn btn-link delete-button" data-id="' + value.name + '"><img src="delete-button.png"></button>';
+            row += '<button type="button" id="up-button">up</button><button type="button" id="down-button">down</button></td>';
             row += '</tr>';
             $("#product-table").append(row);
         });
@@ -129,7 +130,7 @@ var Events = {
     }
 
     , MarkedEntry: function () {
-        $("tbody tr").off().on("click", function (event) {
+        $(".markable").off().on("click", function (event) {
             event.stopPropagation();
             $(this).toggleClass("marked");
             let product = $(this).children(":first").text();
