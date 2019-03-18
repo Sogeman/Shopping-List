@@ -20,36 +20,17 @@
     <meta name="msapplication-starturl" content="/">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./bootstrap.min.css">
 
     <link rel="stylesheet" href="./mystyles.css">
 
     <script src="./service-worker.js"></script> <!-- for offline use -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script src="./jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script src="./bootstrap.min.js"></script>
     <script src="./logic.js"></script>
     
-    <!-- fallback for bootstrap.css -->
-    <script>
-        $(document).ready(function () {
-            var bodyColor = $('body').css('color');
-            if (bodyColor != 'rgb(51, 51, 51)') {
-                $("head").prepend('<link rel="stylesheet" href="./bootstrap.min.css">');
-            }
-        });
-    </script>
-    <!-- fallback for jquery -->
-    <script type="text/javascript">
-        if (typeof jQuery == 'undefined') {
-            document.write(unescape("%3Cscript src='./jquery-3.3.1.min.js' type='text/javascript'%3E%3C/script%3E"));
-            document.write(unescape("%3Cscript src='./jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
-        }
-    </script>
-    <!-- fallback for bootstrap.js -->
-    <script>    $.fn.modal || document.write('<script src="./bootstrap.min.js"><\/script>')</script>
-
     <!-- Sercice Worker for offline use -->
     <script>
         if ('serviceWorker' in navigator) {
