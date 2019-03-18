@@ -27,6 +27,10 @@
     <script src="./service-worker.js"></script> <!-- for offline use -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script src="./logic.js"></script>
+    
     <!-- fallback for bootstrap.css -->
     <script>
         $(document).ready(function () {
@@ -43,16 +47,8 @@
             document.write(unescape("%3Cscript src='./jquery-ui.min.js' type='text/javascript'%3E%3C/script%3E"));
         }
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
-
     <!-- fallback for bootstrap.js -->
     <script>    $.fn.modal || document.write('<script src="bootstrap.min.js"><\/script>')</script>
-
-    <script src="./logic.js"></script>
-
-
 
     <!-- Sercice Worker for offline use -->
     <script>
