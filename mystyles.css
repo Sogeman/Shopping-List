@@ -51,6 +51,10 @@ td.actions {
 .delete-button, .up-button, .down-button {
     padding: 0;
 }
+.delete-button {
+    margin-top: 0.5em;
+}
+
 .up-button {
     margin-right: 0.5em;
 }
