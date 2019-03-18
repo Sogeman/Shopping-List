@@ -63,6 +63,10 @@ td.actions {
     font-size: 12px;
 }
 
+#confirm-sorting-button {
+    display: none;
+}
+
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
