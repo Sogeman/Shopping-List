@@ -17,6 +17,7 @@ var precacheFiles = [
       'mystyles.css',
       'favicon.png',
       'android-icon-192x192.png',
+      'splash.png',
       'manifest.json'
     ];
 
