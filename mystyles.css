@@ -54,7 +54,6 @@ td.actions {
 .delete-button {
     margin-top: 0.5em;
 }
-
 .up-button {
     margin-right: 0.5em;
 }
@@ -67,7 +66,7 @@ td.actions {
     font-size: 12px;
 }
 
-#confirm-sorting-button {
+#confirm-sorting-button, #list-buttons {
     display: none;
 }
 

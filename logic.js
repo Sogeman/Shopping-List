@@ -6,7 +6,7 @@ $(document).ready(function () {
             items.each((index, listitem) => {
                 const itemName = $(listitem).children().eq(0).html();
                 const count = Number($(listitem).children().eq(1).html());
-                //save status
+                //save status missing
                 console.log($(listitem));
                 Queries.SaveToProducts(itemName, count);
             });
