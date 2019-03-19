@@ -2,10 +2,10 @@ $(document).ready(function () {
     $('#product-table').sortable({
         stop: () => { // on event stop (drag&drop) clean products/localstorage and read/save them again from list in new order
             products = [];
-            var items = $(".list-item");
+            const items = $(".list-item");
             items.each((index, listitem) => {
-                var itemName = $(listitem).children().eq(0).html();
-                var count = Number($(listitem).children().eq(1).html());
+                const itemName = $(listitem).children().eq(0).html();
+                const count = Number($(listitem).children().eq(1).html());
                 //save status missing
                 console.log($(listitem));
                 Queries.SaveToProducts(itemName, count);
@@ -24,12 +24,12 @@ var objDate = new Date(),
     month = objDate.toLocaleString(locale, { month: "long" });
 
 var products = []; // global array as fake database in combination with local storage
-var detachedButton;
+let detachedButton;
 
 var ShoppingList = {
     DrawShoppingList: function (sorting) {
         $("#product-table").empty();
-        var list;
+        let list;
         
         if (products.length > 0) {
             list = products;
@@ -141,8 +141,8 @@ var Events = {
             var items = $(".list-item");
 
             items.each((index, listitem) => {
-                var itemName = $(listitem).children().eq(0).html();
-                var count = Number($(listitem).children().eq(1).html());
+                const itemName = $(listitem).children().eq(0).html();
+                const count = Number($(listitem).children().eq(1).html());
                 Queries.SaveToProducts(itemName, count);
 
             });
@@ -175,8 +175,8 @@ var Events = {
             event.stopPropagation();
             $(this).toggleClass("marked");
             $(this).siblings(':first').toggleClass("marked");
-            var product = $(this).text();
-            var i = products.findIndex(p => p.name === product);
+            let product = $(this).text();
+            const i = products.findIndex(p => p.name === product);
             if (products[i].status !== 'marked') {
                 products[i].status = 'marked';
             } else {
@@ -234,7 +234,7 @@ var Queries = {
 
     DeleteEntry: function (product) {
 
-        var i = products.findIndex(p => p.name === product);
+        let i = products.findIndex(p => p.name === product);
         products.splice(i, 1);
 
         var list = JSON.stringify(products);
@@ -263,8 +263,8 @@ var Queries = {
     }
 
     , SaveToProducts: function (name, count) {
-        var updated = false;
-        var productObj = {
+        let updated = false;
+        let productObj = {
             name: name,
             count: count,
             status: ''
@@ -286,7 +286,7 @@ var Queries = {
         if (newIndex > array.length || newIndex < 0) {
             return;
         }
-        var removedElement = array.splice(oldIndex, 1)[0];
+        const removedElement = array.splice(oldIndex, 1)[0];
         array.splice(newIndex, 0, removedElement);
             
     }
