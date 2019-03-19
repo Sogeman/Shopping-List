@@ -6,9 +6,17 @@ $(document).ready(function () {
             items.each((index, listitem) => {
                 const itemName = $(listitem).children().eq(0).html();
                 const count = Number($(listitem).children().eq(1).html());
-                //save status missing
-                console.log($(listitem));
-                Queries.SaveToProducts(itemName, count);
+                let status;
+                const classes = $(listitem).children(':first').attr('class');
+                let marked;
+                if (classes) {
+                    classArray = classes.split(' ');
+                    console.log(classArray);
+                }
+                if (marked) {
+                    status = 'marked';
+                }
+                Queries.SaveToProducts(itemName, count, status);
             });
             localStorage.clear();
             Queries.SaveToLocalStorage();
@@ -260,12 +268,12 @@ var Queries = {
         localStorage.setItem("shoppinglist", list); // stores list in local storage to keep after reload
     }
 
-    , SaveToProducts: function (name, count) {
+    , SaveToProducts: function (name, count, status) {
         let updated = false;
         let productObj = {
             name: name,
             count: count,
-            status: ''
+            status: status
         };
 
         products.find((p, index) => {
