@@ -11,10 +11,7 @@ $(document).ready(function () {
                 let marked;
                 if (classes) {
                     classArray = classes.split(' ');
-                    console.log(classArray);
-                }
-                if (marked) {
-                    status = 'marked';
+                    status = classArray.find(c => c === 'marked');
                 }
                 Queries.SaveToProducts(itemName, count, status);
             });
@@ -267,7 +264,7 @@ var Queries = {
         localStorage.setItem("shoppinglist", list); // stores list in local storage to keep after reload
     }
 
-    , SaveToProducts: function (name, count, status) {
+    , SaveToProducts: function (name, count, status = '') {
         let updated = false;
         let productObj = {
             name: name,
