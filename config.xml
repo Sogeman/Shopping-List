@@ -8,6 +8,7 @@
   <preference name="phonegap-version" value="cli-8.0.0" />
   <preference name='SplashScreenDelay' value='2000' />
   <preference name='AutoHideSplashScreen' value='true' />
+  <preference name="ShowSplashScreenSpinner" value="false"/>
   <gap:plugin name='cordova-plugin-splashscreen' source='npm' />
 
   <name>Einkaufsliste</name>
