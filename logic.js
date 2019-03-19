@@ -37,19 +37,18 @@ let detachedButton;
 var ShoppingList = {
     DrawShoppingList: function (sorting) {
         $("#product-table").empty();
-        let list;
-        
-        if (products.length > 0) {
-            list = products;
-        } else {
-            list = Queries.FetchProducts();
+        var storage = localStorage.getItem("shoppinglist");
+        var list = JSON.parse(storage);
+        if (list != null) {
+            products = list;
+            if (list.length > 0) {
+                $("#list-buttons").css('display', 'flex');
+            } else {
+                $("#list-buttons").hide();
+            }
         }
         
-        if (list.length > 0) {
-            $("#list-buttons").css('display', 'flex');
-        } else {
-            $("#list-buttons").hide();
-        }
+        
 
         $.each(list, function (key, value) {
             var row = '<tr class="list-item"><td scope="row" class="markable ' + value.status + '">' + value.name + '</td>';
@@ -66,6 +65,7 @@ var ShoppingList = {
             row += '</tr>';
             $("#product-table").append(row);
         });
+
         Events.Initialize(); // add events back
     }
 }
@@ -73,6 +73,7 @@ var ShoppingList = {
 var Events = {
 
     Initialize: function () {
+
 
         Events.SaveButton();
         Events.SubmitWithEnter();
@@ -300,6 +301,7 @@ var Queries = {
     , FetchProducts: function () {
         var storage = localStorage.getItem("shoppinglist");
         var list = JSON.parse(storage);
+        console.log(list);
         if (list != null) {
             products = list;
         }

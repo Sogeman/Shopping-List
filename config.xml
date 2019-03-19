@@ -5,6 +5,7 @@
     versionCode = "10"
     version     = "1.0.0" >
 
+
   <name>Einkaufsliste</name>
   <platform name="android">
     <icon src="./android-icon-192x192.png" width="192" height="192"/>
