@@ -67,7 +67,7 @@ td.actions {
     font-size: 12px;
 }
 
-#confirm-sorting-button, #list-buttons  {
+#confirm-sorting-button {
     display: none;
 }
 
