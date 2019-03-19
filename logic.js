@@ -30,10 +30,17 @@ var ShoppingList = {
     DrawShoppingList: function (sorting) {
         $("#product-table").empty();
         let list;
+        
         if (products.length > 0) {
             list = products;
         } else {
             list = Queries.FetchProducts();
+        }
+        
+        if (list.length > 0) {
+            $("#list-buttons").show();
+        } else {
+            $("#list-buttons").hide();
         }
 
         $.each(list, function (key, value) {
@@ -231,7 +238,8 @@ var Queries = {
         products.splice(i, 1);
 
         var list = JSON.stringify(products);
-        localStorage.setItem("shoppinglist", list)
+        localStorage.setItem("shoppinglist", list);
+        ShoppingList.DrawShoppingList();
     }
 
     , SaveEntry: function () {
