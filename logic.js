@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    alert("test");
     $('#product-table').sortable({
         stop: () => { // on event stop (drag&drop) clean products/localstorage and read/save them again from list in new order
             products = [];
@@ -59,7 +58,7 @@ var ShoppingList = {
             row += '</tr>';
             $("#product-table").append(row);
         });
-
+        alert("before events");
         Events.Initialize(); // add events back
     }
 }
