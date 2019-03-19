@@ -47,8 +47,6 @@ var ShoppingList = {
                 $("#list-buttons").hide();
             }
         }
-        
-        
 
         $.each(list, function (key, value) {
             var row = '<tr class="list-item"><td scope="row" class="markable ' + value.status + '">' + value.name + '</td>';
@@ -295,16 +293,7 @@ var Queries = {
         }
         const removedElement = array.splice(oldIndex, 1)[0];
         array.splice(newIndex, 0, removedElement);
-            
+        Queries.SaveToLocalStorage();
     }
 
-    , FetchProducts: function () {
-        var storage = localStorage.getItem("shoppinglist");
-        var list = JSON.parse(storage);
-        console.log(list);
-        if (list != null) {
-            products = list;
-        }
-        return list;
-    }
 }
