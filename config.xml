@@ -9,7 +9,7 @@
   <name>Einkaufsliste</name>
   <platform name="android">
     <icon src="./android-icon-192x192.png" width="192" height="192"/>
-    <splash src="splash.png" width="720" height="1280" />
+    <splash src="./splash.png" width="720" height="1280" />
   </platform>  
 
   <description>
