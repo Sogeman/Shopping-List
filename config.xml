@@ -5,7 +5,6 @@
     versionCode = "10"
     version     = "1.0.0" >
 
-  <preference name="phonegap-version" value="cli-8.0.0" />
   <preference name='SplashScreenDelay' value='1000' />
   <preference name="ShowSplashScreenSpinner" value="false"/>
   <gap:plugin name='cordova-plugin-splashscreen' source='npm' />
