@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    alert("test");
     $('#product-table').sortable({
         stop: () => { // on event stop (drag&drop) clean products/localstorage and read/save them again from list in new order
             products = [];
@@ -67,7 +68,7 @@ var Events = {
 
     Initialize: function () {
 
-
+        alert("events");
         Events.SaveButton();
         Events.SubmitWithEnter();
         Events.DeleteButton();
