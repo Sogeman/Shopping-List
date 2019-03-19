@@ -38,7 +38,7 @@ var ShoppingList = {
         }
         
         if (list.length > 0) {
-            $("#list-buttons").show();
+            $("#list-buttons").css('display', 'flex');
         } else {
             $("#list-buttons").hide();
         }
