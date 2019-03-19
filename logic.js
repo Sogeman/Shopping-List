@@ -6,7 +6,7 @@ $(document).ready(function () {
             items.each((index, listitem) => {
                 const itemName = $(listitem).children().eq(0).html();
                 const count = Number($(listitem).children().eq(1).html());
-                //save status missing
+                //save status
                 console.log($(listitem));
                 Queries.SaveToProducts(itemName, count);
             });
@@ -58,6 +58,7 @@ var ShoppingList = {
             row += '</tr>';
             $("#product-table").append(row);
         });
+
         Events.Initialize(); // add events back
     }
 }
@@ -65,6 +66,7 @@ var ShoppingList = {
 var Events = {
 
     Initialize: function () {
+
 
         Events.SaveButton();
         Events.SubmitWithEnter();
