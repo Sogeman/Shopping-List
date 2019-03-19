@@ -29,19 +29,18 @@ let detachedButton;
 var ShoppingList = {
     DrawShoppingList: function (sorting) {
         $("#product-table").empty();
-        let list;
-        
-        if (products.length > 0) {
-            list = products;
-        } else {
-            list = Queries.FetchProducts();
+        var storage = localStorage.getItem("shoppinglist");
+        var list = JSON.parse(storage);
+        if (list != null) {
+            products = list;
+            if (list.length > 0) {
+                $("#list-buttons").css('display', 'flex');
+            } else {
+                $("#list-buttons").hide();
+            }
         }
         
-        if (list.length > 0) {
-            $("#list-buttons").css('display', 'flex');
-        } else {
-            $("#list-buttons").hide();
-        }
+        
 
         $.each(list, function (key, value) {
             var row = '<tr class="list-item"><td scope="row" class="markable ' + value.status + '">' + value.name + '</td>';
@@ -294,6 +293,7 @@ var Queries = {
     , FetchProducts: function () {
         var storage = localStorage.getItem("shoppinglist");
         var list = JSON.parse(storage);
+        console.log(list);
         if (list != null) {
             products = list;
         }
