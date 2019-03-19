@@ -58,7 +58,6 @@ var ShoppingList = {
             row += '</tr>';
             $("#product-table").append(row);
         });
-        alert("before events");
         Events.Initialize(); // add events back
     }
 }
@@ -67,7 +66,6 @@ var Events = {
 
     Initialize: function () {
 
-        alert("events");
         Events.SaveButton();
         Events.SubmitWithEnter();
         Events.DeleteButton();
