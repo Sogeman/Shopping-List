@@ -5,10 +5,16 @@
     versionCode = "10"
     version     = "1.0.0" >
 
+  <preference name="phonegap-version" value="cli-8.0.0" />
+  <preference name='SplashScreenDelay' value='1300' />
+  <preference name="ShowSplashScreenSpinner" value="false"/>
+  <gap:plugin name='cordova-plugin-splashscreen' source='npm' />
 
   <name>Einkaufsliste</name>
   <platform name="android">
     <icon src="./android-icon-192x192.png" width="192" height="192"/>
+    <splash src="splash.png" width="720" height="1280" />
+    <splash src="splash.png" platform="android" qualifier="xhdpi" />
   </platform>  
 
   <description>
