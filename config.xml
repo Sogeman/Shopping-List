@@ -3,7 +3,8 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
     id          = "online.mandler.einkauf"
     versionCode = "10"
-    version     = "1.5.0" >
+    version     = "1.0.0" >
+
 
   <name>Einkaufsliste</name>
   <platform name="android">
