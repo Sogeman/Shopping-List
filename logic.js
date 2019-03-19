@@ -1,21 +1,6 @@
 $(document).ready(function () {
-    $('#product-table').sortable({
-        stop: () => { // on event stop (drag&drop) clean products/localstorage and read/save them again from list in new order
-            products = [];
-            var items = $(".list-item");
-            items.each((index, listitem) => {
-                var itemName = $(listitem).children().eq(0).html();
-                var count = Number($(listitem).children().eq(1).html());
-                //save status missing
-                console.log($(listitem));
-                Queries.SaveToProducts(itemName, count);
-            });
-            localStorage.clear();
-            Queries.SaveToLocalStorage();
-        }
-    });
+    
     ShoppingList.DrawShoppingList();
-    alert("test");
     detachedButton = $('#confirm-sorting-button').detach();
     $("#title").text("Einkaufsliste vom " + objDate.getDate() + ". " + month);
 });
