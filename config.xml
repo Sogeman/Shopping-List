@@ -5,6 +5,10 @@
     versionCode = "10"
     version     = "1.0.0" >
 
+  <preference name="phonegap-version" value="cli-8.0.0" />
+  <preference name='SplashScreenDelay' value='2000' />
+  <preference name='AutoHideSplashScreen' value='true' />
+  <gap:plugin name='cordova-plugin-splashscreen' source='npm' />
 
   <name>Einkaufsliste</name>
   <platform name="android">
