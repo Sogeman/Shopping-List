@@ -15,6 +15,10 @@ td.actions {
     padding: 0.2em;
 }
 
+#product-table {
+    font-size: 0.8em;
+}
+
 .input-fields {
     height: 3em;
     margin-top: 0.75em;
@@ -85,5 +89,9 @@ input[type="number"] {
     }
     .cleanup-button-wrapper {
         margin: 0 auto;
+    }
+    
+    #product-table {
+    	font-size: 1em;
     }
 }
